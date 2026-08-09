@@ -1,18 +1,15 @@
 import { useState } from 'react'
 import LandingPage from './pages/LandingPage'
-import WaitlistPage from './pages/WaitlistPage'
-
-export type Page = 'landing' | 'waitlist'
+import WaitlistModal from './pages/WaitlistPage'
 
 export default function App() {
-  const [page, setPage] = useState<Page>('landing')
+  const [showWaitlist, setShowWaitlist] = useState(false)
 
   return (
     <div style={{ fontFamily: "'Inter', sans-serif" }}>
-      {page === 'landing' ? (
-        <LandingPage onJoinWaitlist={() => setPage('waitlist')} />
-      ) : (
-        <WaitlistPage onBack={() => setPage('landing')} />
+      <LandingPage onJoinWaitlist={() => setShowWaitlist(true)} />
+      {showWaitlist && (
+        <WaitlistModal onClose={() => setShowWaitlist(false)} />
       )}
     </div>
   )
