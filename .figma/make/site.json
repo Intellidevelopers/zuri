@@ -1,0 +1,11 @@
+{
+  "title": "zuri",
+  "description": "Streamlines project workflows by integrating visual references directly into tasks, enhancing clarity and collaboration for creative teams.",
+  "robots": {
+    "index": false
+  },
+  "accessibility": {
+    "addBypassLinks": false,
+    "ignoreReducedMotion": false
+  }
+}

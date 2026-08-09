@@ -1,0 +1,88 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+@import 'tailwindcss';
+
+html {
+  font-family: 'Inter', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  color: #123D32;
+}
+
+/* Scroll animations */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.reveal-delay-1 { transition-delay: 0.08s; }
+.reveal-delay-2 { transition-delay: 0.16s; }
+.reveal-delay-3 { transition-delay: 0.24s; }
+.reveal-delay-4 { transition-delay: 0.32s; }
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #c4d0cb; border-radius: 4px; }
+
+/* Custom checkbox */
+input[type="checkbox"].zuri-check {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 20px;
+  height: 20px;
+  border: 2px solid #d1d9d5;
+  border-radius: 5px;
+  cursor: pointer;
+  position: relative;
+  flex-shrink: 0;
+  background: #fff;
+  transition: background 0.15s, border-color 0.15s;
+}
+input[type="checkbox"].zuri-check:checked {
+  background: #0B4F3C;
+  border-color: #0B4F3C;
+}
+input[type="checkbox"].zuri-check:checked::after {
+  content: '';
+  position: absolute;
+  left: 4px;
+  top: 1px;
+  width: 8px;
+  height: 12px;
+  border: 2px solid #fff;
+  border-top: none;
+  border-left: none;
+  transform: rotate(45deg);
+}
+input[type="checkbox"].zuri-check:focus {
+  outline: 2px solid #0B4F3C44;
+  outline-offset: 2px;
+}
+
+/* Select arrow removal */
+select.zuri-select {
+  appearance: none;
+  -webkit-appearance: none;
+}
+
+/* Focus ring */
+.zuri-input:focus, .zuri-select:focus {
+  outline: none;
+  border-color: #0B4F3C !important;
+  box-shadow: 0 0 0 3px rgba(11, 79, 60, 0.1);
+}
+
+/* FAQ accordion height animation */
+.faq-content {
+  overflow: hidden;
+  transition: max-height 0.3s ease, opacity 0.3s ease, padding 0.3s ease;
+}
