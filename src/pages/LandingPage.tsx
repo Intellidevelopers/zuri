@@ -309,70 +309,79 @@ function Hero({ onJoinWaitlist }: { onJoinWaitlist: () => void }) {
             </p>
 
             {/* Glass email pill CTA */}
-            {/* <div
+            <div
               style={{
-                display: 'flex',
-                alignItems: 'center',
-                background: 'rgba(255,255,255,0.13)',
-                border: '1.5px solid rgba(255,255,255,0.25)',
-                backdropFilter: 'blur(16px)',
-                WebkitBackdropFilter: 'blur(16px)',
-                borderRadius: 999,
-                padding: '6px 6px 6px 24px',
-                maxWidth: 520,
-                margin: '0 auto',
-                boxShadow: '0 8px 32px rgba(0,0,0,0.20), inset 0 1px 0 rgba(255,255,255,0.15)',
+                width: '100%',
               }}
               className="hero-pill"
             >
-              <input
-                type="email"
-                placeholder="Your email address"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
+              <div
                 style={{
-                  flex: 1,
-                  border: 'none',
-                  outline: 'none',
-                  background: 'transparent',
-                  fontSize: 15,
-                  color: '#fff',
-                  fontFamily: "'Inter', sans-serif",
-                  minWidth: 0,
-                }}
-                onFocus={(e) => (e.currentTarget.style.caretColor = '#fff')}
-              />
-              <button
-                onClick={onJoinWaitlist}
-                className="hero-pill-btn"
-                style={{
-                  background: '#fff',
-                  color: '#0B4F3C',
-                  border: 'none',
+                  display: 'flex',
+                  alignItems: 'center',
+                  background: 'rgba(255,255,255,0.13)',
+                  border: '1.5px solid rgba(255,255,255,0.25)',
+                  backdropFilter: 'blur(16px)',
+                  WebkitBackdropFilter: 'blur(16px)',
                   borderRadius: 999,
-                  padding: '13px 26px',
-                  fontSize: 13.5,
-                  fontWeight: 700,
-                  fontFamily: "'Inter', sans-serif",
-                  cursor: 'pointer',
-                  whiteSpace: 'nowrap',
-                  transition: 'background 0.2s, box-shadow 0.2s',
-                  flexShrink: 0,
-                  letterSpacing: '0.05em',
-                  boxShadow: '0 2px 8px rgba(0,0,0,0.15)',
+                  padding: '6px 6px 6px 24px',
+                  width: '100%',
+                  maxWidth: 520,
+                  margin: '0 auto',
+                  boxShadow: '0 8px 32px rgba(0,0,0,0.20), inset 0 1px 0 rgba(255,255,255,0.15)',
+                  boxSizing: 'border-box',
                 }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.background = '#f0f0f0'
-                  e.currentTarget.style.boxShadow = '0 4px 16px rgba(0,0,0,0.2)'
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.background = '#fff'
-                  e.currentTarget.style.boxShadow = '0 2px 8px rgba(0,0,0,0.15)'
-                }}
+                className="hero-pill-inner"
               >
-                JOIN WAITLIST
-              </button>
-            </div> */}
+                <input
+                  type="email"
+                  placeholder="Your email address"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  style={{
+                    flex: 1,
+                    border: 'none',
+                    outline: 'none',
+                    background: 'transparent',
+                    fontSize: 15,
+                    color: '#fff',
+                    fontFamily: "'Inter', sans-serif",
+                    minWidth: 0,
+                  }}
+                  onFocus={(e) => (e.currentTarget.style.caretColor = '#fff')}
+                />
+                <button
+                  onClick={onJoinWaitlist}
+                  className="hero-pill-btn"
+                  style={{
+                    background: '#fff',
+                    color: '#0B4F3C',
+                    border: 'none',
+                    borderRadius: 999,
+                    padding: '13px 26px',
+                    fontSize: 13.5,
+                    fontWeight: 700,
+                    fontFamily: "'Inter', sans-serif",
+                    cursor: 'pointer',
+                    whiteSpace: 'nowrap',
+                    transition: 'background 0.2s, box-shadow 0.2s',
+                    flexShrink: 0,
+                    letterSpacing: '0.05em',
+                    boxShadow: '0 2px 8px rgba(0,0,0,0.15)',
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.background = '#f0f0f0'
+                    e.currentTarget.style.boxShadow = '0 4px 16px rgba(0,0,0,0.2)'
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.background = '#fff'
+                    e.currentTarget.style.boxShadow = '0 2px 8px rgba(0,0,0,0.15)'
+                  }}
+                >
+                  JOIN WAITLIST
+                </button>
+              </div>
+            </div>
           </div>
 
           {/* Phone mockup — centered, cropped at card bottom, faded out at bottom */}
@@ -439,14 +448,23 @@ function Hero({ onJoinWaitlist }: { onJoinWaitlist: () => void }) {
           .hero-mockup-wrap { margin-top: 28px !important; }
           .hero-mockup-img { width: clamp(300px, 60vw, 350px) !important; }
           .hero-pill {
-            flex-direction: column !important;
-            border-radius: 18px !important;
-            padding: 14px !important;
-            gap: 10px;
-            align-items: stretch !important;
+            display: flex !important;
+            width: 100% !important;
+            max-width: 100% !important;
           }
-          .hero-pill input { text-align: center; font-size: 14px !important; padding: 6px 0; }
-          .hero-pill-btn { border-radius: 12px !important; padding: 12px 20px !important; font-size: 13px !important; width: 100%; }
+          .hero-pill-inner {
+            max-width: clamp(260px, 88vw, 460px) !important;
+            margin: 0 auto !important;
+            padding: clamp(4px, 1vw, 6px) clamp(4px, 1vw, 6px) clamp(4px, 1vw, 6px) clamp(14px, 3.8vw, 22px) !important;
+          }
+          .hero-pill-inner input {
+            font-size: clamp(12px, 3.2vw, 15px) !important;
+            padding: clamp(4px, 1.2vw, 8px) 0 !important;
+          }
+          .hero-pill-btn {
+            padding: clamp(9px, 2.6vw, 13px) clamp(14px, 4.5vw, 24px) !important;
+            font-size: clamp(10.5px, 2.8vw, 13.5px) !important;
+          }
         }
       `}</style>
     </div>
