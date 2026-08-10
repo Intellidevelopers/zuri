@@ -393,7 +393,7 @@ function Hero({ onJoinWaitlist }: { onJoinWaitlist: () => void }) {
               alt="Zuri app mockup"
               className="hero-mockup-img"
               style={{
-                width: 'clamp(260px, 38vw, 560px)',
+                width: 'clamp(300px, 40vw, 6000px)',
                 height: 'auto',
                 display: 'block',
                 objectFit: 'contain',
