@@ -1,5 +1,3 @@
-import logoImg from '../assets/logo.png'
-
 interface ZuriLogoProps {
   variant?: 'dark' | 'light'
   size?: 'sm' | 'md' | 'lg'
@@ -11,7 +9,7 @@ export default function ZuriLogo({ size = 'md' }: ZuriLogoProps) {
   const h = heights[size]
   return (
     <img
-      src={logoImg}
+      src="/logo.png"
       alt="Zuri"
       style={{ height: '40px', width: '40px', display: 'block', userSelect: 'none' }}
       draggable={false}

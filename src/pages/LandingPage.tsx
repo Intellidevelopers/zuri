@@ -3,16 +3,17 @@ import { Users, Zap, Gift, MessageSquare, ChevronDown } from 'lucide-react'
 import ZuriLogo from '../components/ZuriLogo'
 import Footer from '../components/Footer'
 
-// Asset imports
-import heroMockup from '../assets/hero-mockup.png'
-import smartBookings from '../assets/smart-bookings.png'
-import professionalProfile from '../assets/profesiional-profile.png'
-import securePayments from '../assets/secure-payments.png'
-import promotions from '../assets/promotions.png'
-import joinWaitlistImg from '../assets/join-waitlist.png'
-import getEarlyAccessImg from '../assets/get-early-access.png'
-import growYourBusinessImg from '../assets/grow-your-business.png'
-import footerLogo from '../assets/footer.png'
+// Asset paths (files live in /public, copied verbatim to dist/ —
+// avoids Vite 8's Rolldown-native bundler which can't resolve PNG imports)
+const heroMockup = '/hero-mockup.png'
+const smartBookings = '/smart-bookings.png'
+const professionalProfile = '/profesiional-profile.png'
+const securePayments = '/secure-payments.png'
+const promotions = '/promotions.png'
+const joinWaitlistImg = '/join-waitlist.png'
+const getEarlyAccessImg = '/get-early-access.png'
+const growYourBusinessImg = '/grow-your-business.png'
+const footerLogo = '/footer.png'
 
 interface LandingPageProps {
   onJoinWaitlist: () => void
@@ -423,7 +424,12 @@ function Hero({ onJoinWaitlist }: { onJoinWaitlist: () => void }) {
       <style>{`
         @media (max-width: 640px) {
           .hero-outer { padding: 0 14px !important; }
-          .hero-card { min-height: 86vh !important; border-radius: 30px !important; }
+          /* Use fixed pixel height instead of 86vh — mobile browsers change the
+             vh value when the address bar collapses, which causes the hero to
+             resize on scroll and shift everything below (including reveal
+             animations that were mid-flight). 760px comfortably fits the
+             hero content + mockup on all standard mobile screen sizes. */
+          .hero-card { min-height: 760px !important; border-radius: 30px !important; }
           .hero-nav-bar { padding: 18px 18px !important; }
           .hero-topbar-btn { padding: 7px 14px !important; font-size: 11px !important; letter-spacing: 0.03em !important; }
           .hero-content { padding: 84px 18px 0 !important; }

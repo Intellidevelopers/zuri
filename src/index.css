@@ -131,3 +131,25 @@ img {
     transition: none !important;
   }
 }
+
+/* ── Mobile: disable reveal transforms entirely to prevent hero/layout shift
+      caused by mobile browser address bar collapsing (vh changes).
+      Opacity fade is kept but delays are stripped to avoid compounding shifts. */
+@media (max-width: 640px) {
+  .reveal {
+    opacity: 1;
+    transform: translate(0, 0) !important;
+    transition: none !important;
+  }
+  .reveal[data-reveal-dir="up"],
+  .reveal[data-reveal-dir="left"],
+  .reveal[data-reveal-dir="right"] {
+    transform: translate(0, 0) !important;
+  }
+  .reveal-delay-1,
+  .reveal-delay-2,
+  .reveal-delay-3,
+  .reveal-delay-4 {
+    transition-delay: 0s !important;
+  }
+}
