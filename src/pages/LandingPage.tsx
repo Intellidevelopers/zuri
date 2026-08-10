@@ -174,7 +174,7 @@ function Hero({ onJoinWaitlist }: { onJoinWaitlist: () => void }) {
               radial-gradient(ellipse 70% 60% at 50% 38%, #2E9E72 0%, #1B7A58 25%, transparent 70%),
               radial-gradient(ellipse 100% 100% at 50% 0%, #1a6b50 0%, #0D5540 40%, #083A2A 100%)
             `,
-            borderRadius: 28,
+            borderRadius: 40,
             overflow: 'hidden',
             width: '100%',
             position: 'relative',
