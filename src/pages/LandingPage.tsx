@@ -393,7 +393,7 @@ function Hero({ onJoinWaitlist }: { onJoinWaitlist: () => void }) {
               alt="Zuri app mockup"
               className="hero-mockup-img"
               style={{
-                width: 'clamp(300px, 40vw, 6000px)',
+                width: 'clamp(260px, 38vw, 560px)',
                 height: 'auto',
                 display: 'block',
                 objectFit: 'contain',
@@ -429,7 +429,7 @@ function Hero({ onJoinWaitlist }: { onJoinWaitlist: () => void }) {
              resize on scroll and shift everything below (including reveal
              animations that were mid-flight). 760px comfortably fits the
              hero content + mockup on all standard mobile screen sizes. */
-          .hero-card { min-height: 760px !important; border-radius: 30px !important; }
+          .hero-card { min-height: 700px !important; border-radius: 30px !important; }
           .hero-nav-bar { padding: 18px 18px !important; }
           .hero-topbar-btn { padding: 7px 14px !important; font-size: 11px !important; letter-spacing: 0.03em !important; }
           .hero-content { padding: 84px 18px 0 !important; }
@@ -437,7 +437,7 @@ function Hero({ onJoinWaitlist }: { onJoinWaitlist: () => void }) {
           .hero-headline { margin-bottom: 14px !important; }
           .hero-subtitle { margin-bottom: 28px !important; }
           .hero-mockup-wrap { margin-top: 28px !important; }
-          .hero-mockup-img { width: clamp(200px, 58vw, 320px) !important; }
+          .hero-mockup-img { width: clamp(300px, 60vw, 350px) !important; }
           .hero-pill {
             flex-direction: column !important;
             border-radius: 18px !important;
