@@ -7,6 +7,7 @@ import ZuriLogo from '../components/ZuriLogo'
 
 interface WaitlistModalProps {
   onClose: () => void
+  initialEmail?: string
 }
 
 interface FormData {
@@ -350,7 +351,7 @@ function PhoneInput({ value, onChange, error }: {
 }
 
 // ---------- Success State ----------
-function SuccessState({ onClose }: { onClose: () => void }) {
+function SuccessState({ onClose, alreadyJoined }: { onClose: () => void; alreadyJoined?: boolean }) {
   return (
     <div style={{ textAlign: 'center', padding: '40px 0 16px' }}>
       <div style={{
@@ -362,10 +363,12 @@ function SuccessState({ onClose }: { onClose: () => void }) {
         <CheckCircle2 size={32} color="#0B4F3C" strokeWidth={1.8} />
       </div>
       <h2 style={{ fontSize: 26, fontWeight: 800, color: '#0B4F3C', margin: '0 0 12px' }}>
-        You&apos;re on the list!
+        {alreadyJoined ? "You're already on the list!" : "You're on the list!"}
       </h2>
-      <p style={{ fontSize: 15, color: '#78837F', lineHeight: 1.65, margin: '0 auto 28px', maxWidth: 320 }}>
-        Thanks for joining Zuri Pro. We&apos;ll be in touch when early access opens.
+      <p style={{ fontSize: 15, color: '#78837F', lineHeight: 1.65, margin: '0 auto 28px', maxWidth: 340 }}>
+        {alreadyJoined
+          ? "Looks like you've already joined the Zuri Pro waitlist. We'll be in touch soon with your early access details."
+          : "Thanks for joining Zuri Pro. We'll be in touch when early access opens."}
       </p>
       <div style={{
         padding: '16px 20px',
@@ -380,7 +383,9 @@ function SuccessState({ onClose }: { onClose: () => void }) {
           <Mail size={16} color="#0B4F3C" strokeWidth={1.8} />
         </div>
         <p style={{ fontSize: 13.5, color: '#4a7065', margin: 0, lineHeight: 1.5 }}>
-          Keep an eye on your inbox and we&apos;ll reach out at the email you provided.
+          {alreadyJoined
+            ? "Check your inbox for your confirmation email — your spot is already secured."
+            : "Keep an eye on your inbox and we'll reach out at the email you provided."}
         </p>
       </div>
       <button
@@ -401,15 +406,17 @@ function SuccessState({ onClose }: { onClose: () => void }) {
 }
 
 // ---------- Main WaitlistModal ----------
-export default function WaitlistModal({ onClose }: WaitlistModalProps) {
+export default function WaitlistModal({ onClose, initialEmail = '' }: WaitlistModalProps) {
   const [form, setForm] = useState<FormData>({
     firstName: '', lastName: '', businessName: '',
-    phone: '', email: '', profession: '', city: '',
+    phone: '', email: initialEmail, profession: '', city: '',
     description: '', experience: '', newsletter: true,
   })
   const [errors, setErrors] = useState<Errors>({})
   const [loading, setLoading] = useState(false)
   const [submitted, setSubmitted] = useState(false)
+  const [alreadyJoined, setAlreadyJoined] = useState(false)
+  const [submitError, setSubmitError] = useState<string | null>(null)
 
   // Lock body scroll when modal open
   useEffect(() => {
@@ -440,13 +447,55 @@ export default function WaitlistModal({ onClose }: WaitlistModalProps) {
     return e
   }
 
-  const handleSubmit = (e: FormEvent) => {
+  const formatPhone = (raw: string): string => {
+    const digits = raw.replace(/\D/g, '')
+    if (digits.startsWith('234')) return '+' + digits
+    if (digits.startsWith('0')) return '+234' + digits.slice(1)
+    return '+234' + digits
+  }
+
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
     const errs = validate()
     if (Object.keys(errs).length) { setErrors(errs); return }
     setErrors({})
+    setSubmitError(null)
     setLoading(true)
-    setTimeout(() => { setLoading(false); setSubmitted(true) }, 1400)
+
+    const payload = {
+      email: form.email.trim(),
+      name: `${form.firstName.trim()} ${form.lastName.trim()}`,
+      phone: formatPhone(form.phone),
+      role: 'professional',
+    }
+
+    try {
+      const res = await fetch('https://api.zuri.ng/api/v1/waitlist', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      })
+
+      if (!res.ok) {
+        let msg = 'Something went wrong. Please try again.'
+        try {
+          const data = await res.json()
+          if (data?.message) msg = data.message
+        } catch { /* ignore parse error */ }
+        throw new Error(msg)
+      }
+
+      const data = await res.json()
+      if (data?.data?.alreadyJoined) {
+        setAlreadyJoined(true)
+      }
+      setLoading(false)
+      setSubmitted(true)
+    } catch (err) {
+      setLoading(false)
+      const message = err instanceof Error ? err.message : 'Network error. Please check your connection and try again.'
+      setSubmitError(message)
+    }
   }
 
   return (
@@ -525,7 +574,7 @@ export default function WaitlistModal({ onClose }: WaitlistModalProps) {
           </div>
 
           {submitted ? (
-            <SuccessState onClose={onClose} />
+            <SuccessState onClose={onClose} alreadyJoined={alreadyJoined} />
           ) : (
             <>
               {/* Heading */}
@@ -632,6 +681,24 @@ export default function WaitlistModal({ onClose }: WaitlistModalProps) {
                       I&apos;d like to receive product updates and launch announcements.
                     </span>
                   </label>
+
+                  {/* Submit error */}
+                  {submitError && (
+                    <div style={{
+                      padding: '12px 16px',
+                      borderRadius: 10,
+                      background: 'rgba(229, 62, 62, 0.08)',
+                      border: '1px solid rgba(229, 62, 62, 0.25)',
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: 10,
+                    }}>
+                      <X size={16} color="#e53e3e" strokeWidth={2} style={{ flexShrink: 0 }} />
+                      <p style={{ fontSize: 13.5, color: '#c53030', margin: 0, lineHeight: 1.5 }}>
+                        {submitError}
+                      </p>
+                    </div>
+                  )}
 
                   {/* Submit button */}
                   <button

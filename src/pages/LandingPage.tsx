@@ -16,7 +16,7 @@ const growYourBusinessImg = '/grow-your-business.png'
 const footerLogo = '/footer.png'
 
 interface LandingPageProps {
-  onJoinWaitlist: () => void
+  onJoinWaitlist: (email?: string) => void
 }
 
 // ── Scroll reveal ─────────────────────────────────────────────────────────────
@@ -338,6 +338,7 @@ function Hero({ onJoinWaitlist }: { onJoinWaitlist: () => void }) {
                   placeholder="Your email address"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
+                  onKeyDown={(e) => { if (e.key === 'Enter') onJoinWaitlist() }}
                   style={{
                     flex: 1,
                     border: 'none',
@@ -351,7 +352,7 @@ function Hero({ onJoinWaitlist }: { onJoinWaitlist: () => void }) {
                   onFocus={(e) => (e.currentTarget.style.caretColor = '#fff')}
                 />
                 <button
-                  onClick={onJoinWaitlist}
+                  onClick={() => onJoinWaitlist()}
                   className="hero-pill-btn"
                   style={{
                     background: '#fff',
